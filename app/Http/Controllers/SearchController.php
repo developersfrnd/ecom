@@ -27,8 +27,10 @@ class SearchController extends Controller
     	$result['suppliers'] = Supplier::where(['lang'=> Session::get('language'),'status'=>'1'])
     	->orWhere('name','like','%'.$search_query.'%')
     	->get();
-    	
-    	echo "<pre>";
-    	print_r($result);die;
+
+    	// echo "<pre>";
+    	// print_r($result);die;
+
+    	return view('search.index',compact('result'));
     }
 }
