@@ -48,6 +48,7 @@ Route::group(['middleware'=>['locale']], function(){
 		Route::get('/projects/products/{project_id}','ProjectsController@getProjectProducts');
 		Route::resource('/products','ProductsController',['only'=>['show']]);
 		Route::resource('/orders','OrdersController',['only'=>['store']]);
+		Route::resource('/users','UsersController',['only'=>['edit','update']]);
 
 		Route::get('/search','SearchController@index');
 
