@@ -9,11 +9,12 @@
     </button>
 
     <div class="collapse navbar-collapse flex-column justify-content-end" id="navbarSupportedContent">
-      <form method="get" action="{{ url('/search') }}">
         <ul class="navbar-nav mb-3 align-items-center justify-content-end">
           <li class="nav-item">
+          <form method="get" action="{{ url('/search') }}">
             <input type="text" placeholder="Search" class="form-control" name="q">
             <i class="fa fa-search"></i>
+          </form>  
           </li>
           <li class="nav-item">
             <a href="{{ url('/lang/en') }}"><img src="{{ asset('assets/images') }}/lang1.jpg" alt="EN"></a>
@@ -22,14 +23,23 @@
             <a href="{{ url('/lang/he') }}"><img src="{{ asset('assets/images') }}/lang2.jpg" alt="HE"></a>
           </li>
         </ul>
-      </form>
       <ul class="navbar-nav justify-content-end">
         <li class="nav-item <?php echo (Request::path()=='/') ? 'active' : '' ?>">
           <a class="nav-link" href="{{ url('/') }}">{{__('header.home')}}</a>
         </li>
-        <li class="nav-item <?php echo (Request::path()=='login') ? 'active' : '' ?>">
+        <li class="nav-item dropdown <?php echo (Request::path()=='login') ? 'active' : '' ?>">
         @if(Auth::user())
-          <a class="nav-link" href="{{ route('signout') }}">{{__('header.logout')}}</a>
+          <!--<a class="nav-link" href="{{ route('signout') }}">{{__('header.logout')}}</a>-->
+
+          <a class="nav-link dropdown-toggle" href="{{ route('signout') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{__('header.logout')}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ url('/users/'.Auth::user()->id.'/edit') }}">Edit Profile</a>
+                <a class="dropdown-item" href="#">My Orders</a>
+                <a class="dropdown-item" href="{{ route('signout') }}">{{__('header.logout')}}</a>
+              </div>
+
         @else
           <a class="nav-link" href="{{ url('/login') }}">{{__('header.login')}}</a>
         @endif  

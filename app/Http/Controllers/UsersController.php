@@ -91,8 +91,8 @@ class UsersController extends Controller
             }
             
 
-            dd($user);
-            //$user->save();
+            //dd($user);
+            $user->save();
             return back()->with('status','Updated Successfully.'); 
         }
     }
