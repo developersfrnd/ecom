@@ -33,6 +33,8 @@ Route::get('uploads/{filename}', function ($filename)
 Route::group(['middleware'=>['locale']], function(){
 
 	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/search','SearchController@index');
+	
 	Route::get('/', function () {
 	    return view('home');
 	});
@@ -49,9 +51,6 @@ Route::group(['middleware'=>['locale']], function(){
 		Route::resource('/products','ProductsController',['only'=>['show']]);
 		Route::resource('/orders','OrdersController',['only'=>['store']]);
 		Route::resource('/users','UsersController',['only'=>['edit','update']]);
-
-		Route::get('/search','SearchController@index');
-
 		Route::get('/logout','AuthController@logout')->name('signout');
 	});	
 

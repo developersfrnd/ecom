@@ -9,18 +9,20 @@
     </button>
 
     <div class="collapse navbar-collapse flex-column justify-content-end" id="navbarSupportedContent">
-      <ul class="navbar-nav mb-3 align-items-center justify-content-end">
-        <li class="nav-item">
-          <input type="text" placeholder="Search" class="form-control">
-          <i class="fa fa-search"></i>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url('/lang/en') }}"><img src="{{ asset('assets/images') }}/lang1.jpg" alt="EN"></a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url('/lang/he') }}"><img src="{{ asset('assets/images') }}/lang2.jpg" alt="HE"></a>
-        </li>
-      </ul>
+      <form method="get" action="{{ url('/search') }}">
+        <ul class="navbar-nav mb-3 align-items-center justify-content-end">
+          <li class="nav-item">
+            <input type="text" placeholder="Search" class="form-control" name="q">
+            <i class="fa fa-search"></i>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/lang/en') }}"><img src="{{ asset('assets/images') }}/lang1.jpg" alt="EN"></a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/lang/he') }}"><img src="{{ asset('assets/images') }}/lang2.jpg" alt="HE"></a>
+          </li>
+        </ul>
+      </form>
       <ul class="navbar-nav justify-content-end">
         <li class="nav-item <?php echo (Request::path()=='/') ? 'active' : '' ?>">
           <a class="nav-link" href="{{ url('/') }}">{{__('header.home')}}</a>
