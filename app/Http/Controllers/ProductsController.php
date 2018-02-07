@@ -44,11 +44,12 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Product $product,Request $request)
     {   
         $product = Product::find($product->id);
         $default_supplier = $product->supplier()->wherePivot('is_default','1')->first();
-        return view('products.show',compact('product','default_supplier'));
+        $project_id = $request->query('project_id');
+        return view('products.show',compact('product','default_supplier','project_id'));
     }
 
     /**

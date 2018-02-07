@@ -13,6 +13,7 @@
               <tr>
                 <th>User</th>
                 <th>Product</th>
+                <th>Supplier</th>
                 <th>Order Date</th>
               </tr>
             </thead>
@@ -21,6 +22,16 @@
               <tr>
                 <td>{{ $order->user->name }}</td>
                 <td>{{ $order->product->name }}</td>
+                <td>
+                  @foreach($order->product->supplier as $supplier)
+                    {{ $supplier->name }} &nbsp;
+                    @if($supplier->pivot->is_default)
+                      <strong>(D)</strong>
+                    @endif
+                    &nbsp;($ {{ $supplier->pivot->price }}) 
+                    <br >
+                  @endforeach
+                </td>
                 <td>{{ $order->created_at }}</td>
               </tr>
             @endforeach  

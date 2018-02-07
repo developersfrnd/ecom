@@ -4,15 +4,20 @@
 	<div class="row">
 	  <div class="col-sm-12">
 	    <h2>Product</h2>
+	    {{ Session::get('status') }}
 	    <div class="product-detail">
 	      <div class="row">
 	        <div class="col-sm-3">
 	        <?php 
+	        if($product->images->count()){
 	          foreach($product->images as $image){
 	          	$images[] = $image->image;
 	          }
 	        ?>
-	        <img src="{{ asset('storage/'.$images[0]) }}" alt="{{ $product->name }}">
+	        	<img src="{{ asset('storage/'.$images[0]) }}" alt="{{ $product->name }}">
+	        <?php }else{ ?>
+	        	<img src="{{ asset('assets/images/no-image.png') }}" height="100" width="100" alt="{{ $product->name }}">	
+	        <?php } ?>	
 	        </div>
 	        <div class="col-sm-9">
 	          <h4>{{ $product->name }}</h4>
@@ -46,6 +51,7 @@
 	                {{csrf_field()}}
 	                <input name="_method" type="hidden" value="POST">
 	                <input name="product_id" type="hidden" value="{{ $product->id }}">
+	                <input name="project_id" type="hidden" value="{{ $project_id }}">
 	                <button type="submit" class="btn-blue">Send Enquiry</button>
 	            </form>
 	          </td>

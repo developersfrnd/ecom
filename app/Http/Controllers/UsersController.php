@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Order;
 use Illuminate\Http\Request;
 use Auth;
 use \Validator;
@@ -16,7 +17,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::where('user_id',Auth::id())->orderby('id','desc')->get();
+        return view('users.index',compact('orders'));
     }
 
     /**

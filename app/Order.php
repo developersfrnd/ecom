@@ -12,6 +12,10 @@ class Order extends Model
     	return $this->belongsTo('App\Product');
     }
 
+    public function project(){
+    	return $this->belongsTo('App\Project');
+    }
+
     public function user(){
     	return $this->belongsTo('App\User');
     }

@@ -38,6 +38,7 @@ class OrdersController extends Controller
     {
         $order = new Order();
         $order->product_id = $request->product_id;
+        $order->project_id = $request->project_id;
         $order->user_id = Auth::id();
         $order->save();
         return back()->with('status', 'Oder saved!'); 
