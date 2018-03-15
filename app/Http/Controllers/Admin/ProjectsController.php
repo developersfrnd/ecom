@@ -48,7 +48,8 @@ class ProjectsController extends AdminController
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-
+        echo "<pre>";
+        print_r($request->all());die;
         $filename = '';
         if(!empty($request->image)){
             $filename = $request->image->store('uploads');
@@ -85,7 +86,7 @@ class ProjectsController extends AdminController
     public function edit(Project $project)
     {
         $project = Project::find($project->id);
-        $products = \App\Product::where('status','1')->get();
+        $products = \App\Product::where(['status'=>'1','lang'=>Session::get('language')])->get();
         $project_products = [];
         foreach($project->products as $product){
             $project_products[] = $product->pivot->product_id;

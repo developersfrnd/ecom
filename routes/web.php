@@ -80,6 +80,7 @@ Route::group(['middleware'=>['locale']], function(){
 			Route::resource('/projects','Admin\ProjectsController');
 			Route::resource('/suppliers','Admin\SuppliersController');
 			Route::resource('/users','Admin\UsersController');
+			Route::resource('/categories','Admin\CategoriesController');
 			Route::resource('/orders','Admin\OrdersController',['only'=>'index']);
 		});	
 	});

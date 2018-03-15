@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Crypt;
 use App\Product;
+use App\Category;
 use Session;
 
 class ProductsController extends AdminController
@@ -27,10 +28,15 @@ class ProductsController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {   
         $product = new Product();
-        return view('admin.products.create',['product'=>$product]);
+        $categories = Category::where('lang',$request->session()->get('language'))
+                                  ->where('parent_id',0)
+                                  ->get();
+                                  // echo "<pre>";
+                                  // print_r($categories);die;
+        return view('admin.products.create',['product'=>$product,'categories'=>$categories]);
     }
 
     /**
@@ -43,6 +49,7 @@ class ProductsController extends AdminController
     {
        $product = new Product;
        $product->lang = $request->session()->get('language');
+       $product->category_id = $request->category_id;
        $product->name = $request->name;
        $product->model_no = $request->model_no;
        $product->sku = $request->sku;
@@ -72,10 +79,13 @@ class ProductsController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit(Request $request,Product $product)
     {
+      $categories = Category::where('lang',$request->session()->get('language'))
+                        ->where('parent_id',0)
+                        ->get();
       $product = Product::find($product->id);
-      return view('admin.products.create',['product'=> $product]); 
+      return view('admin.products.create',['product'=> $product,'categories'=>$categories]); 
     }
 
     /**
@@ -88,6 +98,7 @@ class ProductsController extends AdminController
     public function update(Request $request, Product $product)
     {
        $product = Product::find($product->id);
+       $product->category_id = $request->category_id;
        $product->name = $request->name;
        $product->sku = $request->sku;
        $product->model_no = $request->model_no;

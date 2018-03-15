@@ -89,7 +89,11 @@ class ProjectsController extends Controller
     public function getProjectProducts($project_id){
         $project = Project::find($project_id);
         $products = $project->products()->get();
-        
+        $categories = [];
+        foreach($products as $product){
+            $categories[] = $product->category_id;
+        }
+        dd($categories);
         return view('projects.products',compact('products','project'));
     }
 }

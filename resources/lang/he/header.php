@@ -1,12 +1,14 @@
 <?php
 return [
 
-	'home'  => 'Home',
+	'home'  => 'דף הבית',
 	'login' => 'Login',
-	'logout' => 'Logout',
-	'about_us' => 'About Us',
-	'projects' => 'Projects',
-	'contact_us' => 'Contact Us',
-	'search' => 'Search',
+	'logout' => 'התנתקות',
+	'about_us' => 'מי אנחנו',
+	'projects' => 'פרוייקטים',
+	'contact_us' => 'צור קשר',
+	'search' => 'חיפוש',
+	'edit_profile'=>'ערוך פרופיל',
+	'my_orders'=> 'ההזמנות שלי'
 ];
 ?>

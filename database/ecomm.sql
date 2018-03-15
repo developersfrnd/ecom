@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 09, 2018 at 08:10 AM
+-- Generation Time: Mar 15, 2018 at 08:46 AM
 -- Server version: 5.5.50-0ubuntu0.14.04.1
 -- PHP Version: 5.6.31-6+ubuntu14.04.1+deb.sury.org+1
 
@@ -19,6 +19,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecomm`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lang` enum('en','he') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
+  `parent_id` int(11) NOT NULL,
+  `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `lang`, `parent_id`, `title`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'en', 0, 'category1', 1, '2018-02-08 17:10:06', '0000-00-00 00:00:00'),
+(3, 'en', 1, 'test1', 1, '2018-02-10 18:01:57', '2018-02-09 12:39:21'),
+(4, 'en', 1, 'test2', 1, '2018-02-10 18:01:57', '2018-02-09 12:39:21'),
+(5, 'en', 0, 'category2', 1, '2018-02-08 17:10:06', '0000-00-00 00:00:00'),
+(6, 'en', 5, 'test3', 1, '2018-02-10 18:03:06', '2018-02-09 12:39:21');
 
 -- --------------------------------------------------------
 
@@ -62,7 +90,15 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `project_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 5, NULL, 2, '2018-01-28 18:16:14', '2018-01-28 09:48:32'),
+(2, 5, 2, 2, '2018-01-28 18:16:57', '2018-01-28 12:03:26');
 
 -- --------------------------------------------------------
 
@@ -74,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `lang` enum('en','he') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en',
   `encrypted` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `model_no` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -94,10 +131,10 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `lang`, `encrypted`, `user_id`, `name`, `model_no`, `meta_title`, `meta_keyword`, `meta_description`, `short_description`, `description`, `sku`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'he', NULL, NULL, 'היכן אפשר להשיג', 'היכן אפשר', NULL, 'שינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'שינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'שינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט. \r\n\r\nשינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'היכן אפשר', NULL, 1, '2017-12-25 11:43:02', '2017-12-25 11:43:02'),
-(2, 'en', NULL, NULL, 'product1', 'pro1', NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy', NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 'SKU1', NULL, 1, '2017-12-25 12:15:04', '2017-12-25 12:15:04'),
-(3, 'en', NULL, NULL, 'project2', 'm-0003', NULL, 'sdds', 'dsfsdf', 'sdfdsf', 'sdfdfs', 'A10001', NULL, 1, '2017-12-28 11:33:52', '2017-12-28 11:33:52');
+INSERT INTO `products` (`id`, `lang`, `encrypted`, `category_id`, `user_id`, `name`, `model_no`, `meta_title`, `meta_keyword`, `meta_description`, `short_description`, `description`, `sku`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'he', NULL, 2, NULL, 'היכן אפשר להשיג', 'היכן אפשר', NULL, 'שינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'שינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'שינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט. \r\n\r\nשינויים בצורה זו או אחרת, על ידי השתלת הומור או מילים אקראיות שלא נראות אפילו מעט אמינות. אם אתה הולך להשתמש במקטעים של של Lorem Ipsum אתה צריך להיות בטוח שאין משהו מביך חבוי בתוך הטקסט.', 'היכן אפשר', NULL, 1, '2017-12-25 11:43:02', '2017-12-25 11:43:02'),
+(2, 'en', NULL, 1, NULL, 'product1', 'pro1', NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy', NULL, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,', 'SKU1', NULL, 1, '2017-12-25 12:15:04', '2017-12-25 12:15:04'),
+(3, 'en', NULL, 1, NULL, 'product2', '111', NULL, 'meta keyword', 'meta desc', 'short desc', 'desc', 'sku2', NULL, 1, '2018-02-17 03:08:37', '2018-02-17 03:08:37');
 
 -- --------------------------------------------------------
 
@@ -112,15 +149,16 @@ CREATE TABLE IF NOT EXISTS `product_project` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `product_project`
 --
 
 INSERT INTO `product_project` (`id`, `project_id`, `product_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, '2017-12-25 17:40:29', '0000-00-00 00:00:00'),
-(2, 2, 2, '2017-12-31 07:17:23', '0000-00-00 00:00:00');
+(1, 2, 1, '2018-03-14 17:25:51', '0000-00-00 00:00:00'),
+(2, 2, 2, '2017-12-31 07:17:23', '0000-00-00 00:00:00'),
+(3, 3, 2, '2018-01-28 12:21:08', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -257,8 +295,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `password`, `remember_token`, `phone`, `fax`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'admin', 'admin@yopmail.com', '$2y$10$GQi7eJf8Khetr.x6Jt6VMeJnKyifTFNUQ6KjVlBHMx.1VJHxCivvK', 'uSDLF0nBk1QlZpB7gxsknMvVramVOw8pqqaGWwKfeaikHT8JYzBltXvEcdjQ', NULL, NULL, 1, '2017-10-08 13:58:04', '2017-10-08 13:58:04'),
-(5, 0, 'prashant', 'prashant@yopmail.com', '$2y$10$PJCBufzLtX5VQTwMw0gCB.c5P2ZDqXLRBh0bopYF1Q01zpfQ/Zdcy', 'b2gCSNcBS8ez57lRbekd7BKwJGJoqH2uV8WTnlM6j4pmorzCxuaHRSrU6g8r', '1212121212', NULL, 1, '2017-12-15 15:15:54', '2017-12-15 15:15:54'),
+(1, 1, 'admin', 'admin@yopmail.com', '$2y$10$GQi7eJf8Khetr.x6Jt6VMeJnKyifTFNUQ6KjVlBHMx.1VJHxCivvK', 'oi6alFRrseRhgHyDxH7w7zEEov4yeruCD7lxL5L2xkwsPT13avf1rz5AFjvB', NULL, NULL, 1, '2017-10-08 13:58:04', '2017-10-08 13:58:04'),
+(5, 0, 'prashant', 'prashant@yopmail.com', '$2y$10$kaMx8aARMPExVfn8mbtA0u2FuJTJFLssDzwj3tlFgy3Iws.SsW0M2', 'vXFBNFpmgUvsjGuT1yslBUVNKGFk1GKGwqQEcJs1NG1O2Opim0UMQZGGZ7jH', '1212121212', '9877689876', 1, '2017-12-15 15:15:54', '2018-01-11 11:25:14'),
 (6, 0, 'prashant1', 'prashant1@yopmail.com', '$2y$10$PJCBufzLtX5VQTwMw0gCB.c5P2ZDqXLRBh0bopYF1Q01zpfQ/Zdcy', 'b2gCSNcBS8ez57lRbekd7BKwJGJoqH2uV8WTnlM6j4pmorzCxuaHRSrU6g8r', '1212121212', NULL, 1, '2017-12-15 15:15:54', '2017-12-15 15:15:54'),
 (7, 0, 'prashant2', 'prashant2@yopmail.com', '$2y$10$PJCBufzLtX5VQTwMw0gCB.c5P2ZDqXLRBh0bopYF1Q01zpfQ/Zdcy', 'b2gCSNcBS8ez57lRbekd7BKwJGJoqH2uV8WTnlM6j4pmorzCxuaHRSrU6g8r', '1212121212', NULL, 1, '2017-12-15 15:15:54', '2017-12-15 15:15:54');
 

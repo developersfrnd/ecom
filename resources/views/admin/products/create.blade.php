@@ -17,6 +17,20 @@
 	    <?php } ?>
 	    {{ csrf_field() }}
 	      <div class="box-body">
+	      	<div class="form-group">
+	          <label for="name">Category</label>
+	          <select class="form-control" name="category_id">
+		          <option value="">Select Category</option>
+		          	@foreach($categories as $category)
+		          	<option value="{{ $category->id }}">{{ $category->title }}</option>
+		          		@if($category->children()->count()):
+		          		@foreach($category->children as $child)	
+		          			<option value="{{ $child->id }}">&nbsp;&nbsp;--{{ $child->title }}</option>
+		          		@endforeach
+		          		@endif
+		          	@endforeach
+              </select>
+	        </div>
 	        <div class="form-group">
 	          <label for="name">Name</label>
 	          <input type="text" class="form-control" id="name" placeholder="Enter Name" name="name" value="<?php echo old('name',$product->name); ?>">

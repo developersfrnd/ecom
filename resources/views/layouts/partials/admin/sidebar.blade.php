@@ -31,10 +31,11 @@
 	  </ul>
 	</li> -->
 
-	<li><a href="{{ url($ADMIN_URL.'/products') }}"><i class="fa fa-link"></i> <span>Manage Products</span></a></li>
-	<li><a href="{{ url($ADMIN_URL.'/users') }}"><i class="fa fa-link"></i> <span>Manage Users</span></a></li>
-	<li><a href="{{ url($ADMIN_URL.'/suppliers') }}"><i class="fa fa-link"></i> <span>Manage Suppliers</span></a></li>
-	<li><a href="{{ url($ADMIN_URL.'/projects') }}"><i class="fa fa-link"></i> <span>Manage Projects</span></a></li>
+	<li><a href="{{ url($ADMIN_URL.'/categories') }}"><i class="fa fa-link"></i> <span>Manage Categories</span></a></li>
 	<li><a href="{{ url($ADMIN_URL.'/orders') }}"><i class="fa fa-link"></i> <span>Manage Orders</span></a></li>
+	<li><a href="{{ url($ADMIN_URL.'/products') }}"><i class="fa fa-link"></i> <span>Manage Products</span></a></li>
+	<li><a href="{{ url($ADMIN_URL.'/projects') }}"><i class="fa fa-link"></i> <span>Manage Projects</span></a></li>
+	<li><a href="{{ url($ADMIN_URL.'/suppliers') }}"><i class="fa fa-link"></i> <span>Manage Suppliers</span></a></li>
+	<li><a href="{{ url($ADMIN_URL.'/users') }}"><i class="fa fa-link"></i> <span>Manage Users</span></a></li>
 </ul>
    

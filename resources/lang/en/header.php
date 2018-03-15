@@ -8,5 +8,7 @@ return [
 	'projects' => 'Projects',
 	'contact_us' => 'Contact Us',
 	'search' => 'Search',
+	'edit_profile'=>'Edit Profile',
+	'my_orders'=> 'My Orders'
 ];
 ?>

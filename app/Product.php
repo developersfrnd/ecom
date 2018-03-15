@@ -21,4 +21,9 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Project');
     }
+
+    public function catgeory()
+    {
+        return $this->belongsTo('App\Category');
+    }
 }

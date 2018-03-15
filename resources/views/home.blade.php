@@ -26,7 +26,7 @@
     <!-- Parallax Banner End -->
 
     <!-- About Section -->
-    <section class="about-section">
+    <!-- <section class="about-section">
       <div class="container">
         <div class="row">
           <div class="col-sm-3">
@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- About Section End -->
 
     <!-- Main Content -->
