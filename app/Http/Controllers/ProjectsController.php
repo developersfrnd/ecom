@@ -89,11 +89,24 @@ class ProjectsController extends Controller
     public function getProjectProducts($project_id){
         $project = Project::find($project_id);
         $products = $project->products()->get();
-        $categories = [];
+        $categories_arr = [];
         foreach($products as $product){
-            $categories[] = $product->category_id;
+            $categories_arr[] = $product->category_id;
         }
-        dd($categories);
-        return view('projects.products',compact('products','project'));
+        //dd($categories);
+        $product_arr = [];
+        foreach($products as $product){
+        	$product_arr[] = $product->id;	
+        }
+
+        $categories_products_arr = [];
+        $categories = \App\Category::whereIn('id',$categories_arr)->get();
+        foreach($categories as $category){
+        	$categories_products_arr[$category->id][] = $category->products()->whereIn('id',$product_arr)->get(); 
+        }
+
+         //echo "<pre>";
+         //print_r($categories_products_arr);die;
+        return view('projects.products',compact('products','project','categories','categories_products_arr'));
     }
 }
