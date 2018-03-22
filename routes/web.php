@@ -47,7 +47,7 @@ Route::group(['middleware'=>['locale']], function(){
 
 	Route::group(['middleware'=>['auth']], function(){
 		Route::resource('/projects','ProjectsController',['only'=>['index','show']]);
-		Route::get('/projects/products/{project_id}','ProjectsController@getProjectProducts');
+		Route::get('/projects/products/{project_id}/{category_id?}','ProjectsController@getProjectProducts');
 		Route::resource('/products','ProductsController',['only'=>['show']]);
 		Route::resource('/orders','OrdersController',['only'=>['store']]);
 		Route::resource('/users','UsersController',['only'=>['index','edit','update']]);

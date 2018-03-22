@@ -86,13 +86,24 @@ class ProjectsController extends Controller
         //
     }
 
-    public function getProjectProducts($project_id){
+    public function getProjectProducts($project_id,$category_id=null){
         $project = Project::find($project_id);
         $products = $project->products()->get();
-        $categories_arr = [];
-        foreach($products as $product){
-            $categories_arr[] = $product->category_id;
-        }
+        $categories_arr = $nav_categories = [];
+        if($category_id){
+            $categories_arr[] = $category_id;
+
+            foreach($products as $product){
+                $nav_categories[] = $product->category_id;
+            }
+
+        }else{
+            foreach($products as $product){
+                $categories_arr[] = $product->category_id;
+            }
+
+            $nav_categories = $categories_arr;
+        }    
         //dd($categories);
         $product_arr = [];
         foreach($products as $product){
@@ -101,12 +112,13 @@ class ProjectsController extends Controller
 
         $categories_products_arr = [];
         $categories = \App\Category::whereIn('id',$categories_arr)->get();
+        $nav_categories = \App\Category::whereIn('id',$nav_categories)->get();
         foreach($categories as $category){
         	$categories_products_arr[$category->id][] = $category->products()->whereIn('id',$product_arr)->get(); 
         }
 
          //echo "<pre>";
          //print_r($categories_products_arr);die;
-        return view('projects.products',compact('products','project','categories','categories_products_arr'));
+        return view('projects.products',compact('products','project','categories','categories_products_arr','nav_categories'));
     }
 }
